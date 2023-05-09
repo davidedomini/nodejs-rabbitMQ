@@ -9,6 +9,7 @@ exports.connectToChannel = () => {
         conn.createChannel(function (err, channel) {
             console.log("[Backend] Channel created")
             ch = channel
+            initResponsesQueue()
         })
     })
 }
@@ -17,3 +18,9 @@ exports.publishToQueue = (queueName, data) => {
     console.log("[Backend] Sending message")
     ch.sendToQueue(queueName, new Buffer.from(data))
 } 
+
+function initResponsesQueue() {
+    ch.consume('responses', function (msg) {
+        console.log("[Backend] Received message:" + msg.content.toString())
+    }, {noAck: true})
+}

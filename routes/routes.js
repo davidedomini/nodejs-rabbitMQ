@@ -4,4 +4,8 @@ module.exports = (app) => {
     app
         .route('/sendMessage')
         .post(controller.sendMessage)
+
+    app
+        .route('/sendReset')
+        .post(controller.sendReset)
 }
